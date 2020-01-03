@@ -1,0 +1,6 @@
+CREATE OR REPLACE FUNCTION
+  zerobyte.BOOL_TO_ZEROBYTE(b BOOL)AS(
+  IF
+    (b,
+      NULL,
+      STRUCT(NULL)))
