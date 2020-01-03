@@ -12,6 +12,7 @@ jobs:
         version: '270.0.0'
         service_account_key: ${{ secrets.GCP_SA_KEY }}
     - run: |
+        gcloud config set project bqfunc
         while read -r file; do
         bq query "$(cat $file)"
         done <<< "$(find udfs -type f -name *.sql)"
