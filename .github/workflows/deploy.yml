@@ -14,5 +14,5 @@ jobs:
     - run: |
         gcloud config set project bqfunc
         while read -r file; do
-        bq query "$(cat $file)"
+        cat $file | bq query
         done <<< "$(find udfs -type f -name *.sql)"
