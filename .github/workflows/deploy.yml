@@ -13,5 +13,5 @@ jobs:
         service_account_key: ${{ secrets.GCP_SA_KEY }}
     - run: |
         while read -r file; do
-        cat $file | bq query --project_id bqfunc
+        cat $file | bq query --project_id bqfunc --nouse_legacy_sql
         done <<< "$(find udfs -type f -name *.sql)"
