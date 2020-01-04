@@ -1,0 +1,11 @@
+CREATE OR REPLACE FUNCTION
+  zerobyte.STRING_TO_ZEROBYTE(s STRING)AS(ARRAY(
+    SELECT
+      AS STRUCT zerobyte.INT64_TO_ZEROBYTE(_)_
+    FROM
+      UNNEST(TO_CODE_POINTS(s))_
+    WITH
+    OFFSET
+      AS o
+    ORDER BY
+      o))
