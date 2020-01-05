@@ -5,11 +5,12 @@ CREATE OR REPLACE FUNCTION
       NULL,
       ARRAY(
       SELECT
+        AS STRUCT
       IF
-        (i&1<<u=0,
-          STRUCT(NULL AS _),
-          STRUCT(STRUCT(NULL AS _)AS _))
+        (i&1<<o=0,
+          NULL,
+          STRUCT(NULL AS _))_
       FROM
-        UNNEST(GENERATE_ARRAY(0, 63))u
+        UNNEST(GENERATE_ARRAY(0, 63))o
       ORDER BY
-        u)));
+        o)));

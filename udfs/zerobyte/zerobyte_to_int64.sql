@@ -6,15 +6,15 @@ CREATE OR REPLACE FUNCTION
       (
       SELECT
         SUM(CASE
-            WHEN u IS NULL THEN ERROR('Unsupported value')
-            WHEN u._ IS NULL THEN 0
-            WHEN u._._ IS NULL THEN 1<<o
+            WHEN s IS NULL THEN ERROR('Unsupported value')
+            WHEN s._ IS NULL THEN 0
+            WHEN s._._ IS NULL THEN 1<<o
           ELSE
           ERROR('Unsupported value')
         END
           )
       FROM
-        UNNEST(a)u
+        UNNEST(a)s
       WITH
       OFFSET
         AS o)))
