@@ -1,0 +1,11 @@
+CREATE OR REPLACE FUNCTION
+  zerobyte.ZEROBYTE_TO_ARRAY_BOOL(a ARRAY<STRUCT<_ STRUCT<_ INT64>>>)AS(ARRAY(
+    SELECT
+      zerobyte.ZEROBYTE_TO_BOOL(s)
+    FROM
+      UNNEST(a)s
+    WITH
+    OFFSET
+      AS o
+    ORDER BY
+      o))
