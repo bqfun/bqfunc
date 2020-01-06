@@ -1,0 +1,11 @@
+CREATE OR REPLACE FUNCTION
+  zerobyte.ARRAY_TIME_TO_ZEROBYTE(a ARRAY<TIME>)AS(ARRAY(
+    SELECT
+      AS STRUCT zerobyte.TIME_TO_ZEROBYTE(t)_
+    FROM
+      UNNEST(a)t
+    WITH
+    OFFSET
+      AS o
+    ORDER BY
+      o))

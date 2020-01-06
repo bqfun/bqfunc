@@ -1,0 +1,11 @@
+CREATE OR REPLACE FUNCTION
+  zerobyte.ARRAY_NUMERIC_TO_ZEROBYTE(a ARRAY<NUMERIC>)AS(ARRAY(
+    SELECT
+      AS STRUCT zerobyte.NUMERIC_TO_ZEROBYTE(n)_
+    FROM
+      UNNEST(a)n
+    WITH
+    OFFSET
+      AS o
+    ORDER BY
+      o))

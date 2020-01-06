@@ -1,0 +1,11 @@
+CREATE OR REPLACE FUNCTION
+  zerobyte.ARRAY_DATE_TO_ZEROBYTE(a ARRAY<DATE>)AS(ARRAY(
+    SELECT
+      AS STRUCT zerobyte.DATE_TO_ZEROBYTE(d)_
+    FROM
+      UNNEST(a)d
+    WITH
+    OFFSET
+      AS o
+    ORDER BY
+      o))
