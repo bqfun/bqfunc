@@ -1,0 +1,4 @@
+CREATE OR REPLACE FUNCTION
+  zerobyte._NOT_NULL_IEEE_TO_FLOAT64(a ARRAY<INT64>)
+  RETURNS FLOAT64
+  LANGUAGE js AS "return new Float64Array(new Uint32Array(a).buffer)[0]"

@@ -1,0 +1,11 @@
+CREATE OR REPLACE FUNCTION
+  zerobyte.ARRAY_INT64_TO_ZEROBYTE(a ARRAY<INT64>)AS(ARRAY(
+    SELECT
+      AS STRUCT zerobyte.INT64_TO_ZEROBYTE(i)_
+    FROM
+      UNNEST(a)i
+    WITH
+    OFFSET
+      AS o
+    ORDER BY
+      o))
