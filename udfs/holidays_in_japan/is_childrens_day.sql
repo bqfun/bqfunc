@@ -1,0 +1,5 @@
+-- こどもの日 五月五日
+CREATE OR REPLACE FUNCTION holidays_in_japan.IS_CHILDRENS_DAY(d DATE)
+AS (
+  EXTRACT(MONTH FROM d) = 5 AND EXTRACT(DAY FROM d) = 5
+);
