@@ -8,6 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.8.6'
+    - run: pip install -r requirements.txt
+    - run: python make_sqls.py
     - name: Install AlphaSQL
       run: |
         wget https://github.com/Matts966/alphasql/releases/latest/download/alphasql_linux_x86_64.tar.gz
@@ -19,8 +24,4 @@ jobs:
         version: '270.0.0'
         service_account_key: ${{ secrets.GCP_SA_KEY }}
         export_default_credentials: true
-    - uses: actions/setup-python@v2
-      with:
-        python-version: '3.8.6'
-    - run: pip install -r requirements.txt
     - run: python execute.py bqfunc US ./dag.dot
