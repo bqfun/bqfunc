@@ -27,6 +27,7 @@ def make_holidays_sql():
     sql = (
         f"CREATE OR REPLACE FUNCTION holidays_in_japan.HOLIDAYS()"
         f"AS([STRUCT<date DATE,name STRING>{date_and_name_sql}])"
+        f'OPTIONS(description = "内閣府「国民の祝日」のデータを返す。参考 https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html")'
     )
     with (Path(__file__).parent / "udfs/holidays_in_japan/holidays.sql").open(
         "w"

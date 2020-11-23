@@ -22,4 +22,6 @@ AS (
       WHEN holidays_in_japan.IS_KOKUMIN_NO_KYUJITSU(d) THEN "国民の休日"
       WHEN holidays_in_japan.IS_FURIKAE_KYUJITSU(d) THEN "振替休日"
     END)
-);
+)
+OPTIONS
+  (description = "国民の祝日または休日なら名前を返す、そうでない場合は NULL を返す");

@@ -7,4 +7,6 @@ AS (
     FROM
       UNNEST(GENERATE_DATE_ARRAY(start_date, end_date)) AS d
   )
-);
+)
+OPTIONS
+  (description = "start_date から end_date までの期間に含まれる稼動日の日数を返す。weekends は [7, 1] で土日を表す。holidays は祝日や休暇を指定する。");
