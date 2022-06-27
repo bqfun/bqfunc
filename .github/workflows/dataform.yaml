@@ -7,7 +7,7 @@ on:
 
 defaults:
   run:
-    working-directory: ./dataform
+    working-directory: dataform
 jobs:
   compile:
     runs-on: ubuntu-latest
