@@ -1,0 +1,25 @@
+-- 国民の休日
+config {
+  type: "operations",
+  hasOutput: true,
+  schema: "holidays_in_japan__asia_northeast1"
+}
+CREATE OR REPLACE FUNCTION ${self()}(d DATE)
+AS (
+  "1985-12-27" <= d AND EXTRACT(DAYOFWEEK FROM d) <> 1 AND (${ref("is_new_years_day")}(d - 1) OR
+  ${ref("is_coming_of_age_day")}(d - 1) OR ${ref("is_national_foundation_day")}(d - 1) OR
+  ${ref("is_emperors_birthday")}(d - 1) OR ${ref("is_vernal_equinox_day")}(d - 1) OR ${ref("is_showa_day")}(d -
+    1) OR ${ref("is_constitution_memorial_day")}(d - 1) OR ${ref("is_greenery_day")}(d -
+    1) OR ${ref("is_childrens_day")}(d - 1) OR ${ref("is_marine_day")}(d - 1) OR ${ref("is_mountain_day")}(d -
+    1) OR ${ref("is_respect_for_the_aged_day")}(d - 1) OR ${ref("is_autumnal_equinox_day")}(d -
+    1) OR ${ref("is_health_sports_day")}(d - 1) OR ${ref("is_sports_day")}(d - 1) OR ${ref("is_culture_day")}(d -
+    1) OR ${ref("is_labour_thanksgiving_day")}(d - 1) OR ${ref("extra_holiday_name_if_holiday")}(d -
+    1) IS NOT NULL) AND (${ref("is_new_years_day")}(d + 1) OR ${ref("is_coming_of_age_day")}(d +
+    1) OR ${ref("is_national_foundation_day")}(d + 1) OR ${ref("is_emperors_birthday")}(d +
+    1) OR ${ref("is_vernal_equinox_day")}(d + 1) OR ${ref("is_showa_day")}(d + 1) OR ${ref("is_constitution_memorial_day")}(d +
+    1) OR ${ref("is_greenery_day")}(d + 1) OR ${ref("is_childrens_day")}(d + 1) OR ${ref("is_marine_day")}(d +
+    1) OR ${ref("is_mountain_day")}(d + 1) OR ${ref("is_respect_for_the_aged_day")}(d + 1) OR
+  ${ref("is_autumnal_equinox_day")}(d + 1) OR ${ref("is_health_sports_day")}(d + 1) OR
+  ${ref("is_sports_day")}(d + 1) OR ${ref("is_culture_day")}(d + 1) OR ${ref("is_labour_thanksgiving_day")}(d +
+    1) OR ${ref("extra_holiday_name_if_holiday")}(d + 1) IS NOT NULL)
+);
