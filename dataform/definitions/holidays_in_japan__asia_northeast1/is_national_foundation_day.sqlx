@@ -1,0 +1,10 @@
+-- 建国記念の日 政令で定める日
+config {
+  type: "operations",
+  hasOutput: true,
+  schema: "holidays_in_japan__asia_northeast1"
+}
+CREATE OR REPLACE FUNCTION ${self()}(d DATE)
+AS (
+  "1967-01-01" <= d AND EXTRACT(DAYOFYEAR FROM d) = 42
+);

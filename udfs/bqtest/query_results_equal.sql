@@ -23,5 +23,5 @@ BEGIN
   USING
     (json_string)
   WHERE
-    (actual.count = expected.count) IS NOT TRUE )""")  ;
+    (actual.count = expected.count) IS NOT TRUE )""") ;
 END;
