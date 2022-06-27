@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout code into workspace directory
         uses: actions/checkout@v3
-      - run: cp -r dataform/* .
+      - run: cp -r dataform/. .
       - name: Install NPM dependencies
         uses: docker://dataformco/dataform:1.22.0
         with:
