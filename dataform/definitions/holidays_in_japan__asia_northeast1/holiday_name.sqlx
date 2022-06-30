@@ -20,12 +20,12 @@ AS (
       WHEN ${ref("is_mountain_day")}(d) THEN "山の日"
       WHEN ${ref("is_respect_for_the_aged_day")}(d) THEN "敬老の日"
       WHEN ${ref("is_autumnal_equinox_day")}(d) THEN "秋分の日"
-      WHEN ${ref("is_health_sports_day")}(d) THEN "体育の日"
+      WHEN ${ref("is_health_sports_day")}(d) THEN IF(d = "2019-10-14", "体育の日（スポーツの日）", "体育の日")
       WHEN ${ref("is_sports_day")}(d) THEN "スポーツの日"
       WHEN ${ref("is_culture_day")}(d) THEN "文化の日"
       WHEN ${ref("is_labour_thanksgiving_day")}(d) THEN "勤労感謝の日"
-      WHEN ${ref("is_kokumin_no_kyujitsu")}(d) THEN "国民の休日"
-      WHEN ${ref("is_furikae_kyujitsu")}(d) THEN "振替休日"
+      WHEN ${ref("is_kokumin_no_kyujitsu")}(d) THEN "休日"
+      WHEN ${ref("is_furikae_kyujitsu")}(d) THEN "休日"
     END)
 )
 OPTIONS
