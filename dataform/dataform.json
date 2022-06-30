@@ -1,6 +1,6 @@
 {
     "warehouse": "bigquery",
-    "defaultSchema": "dataform",
+    "defaultSchema": "holidays_in_japan__asia_northeast1",
     "assertionSchema": "dataform_assertions",
     "defaultDatabase": "bqfunc",
     "useRunCache": false
