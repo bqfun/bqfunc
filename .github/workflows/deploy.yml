@@ -21,7 +21,7 @@ jobs:
         sudo tar -zxvf alphasql_linux_x86_64.tar.gz -C /usr/local/bin --strip=1
         rm alphasql_linux_x86_64.tar.gz
     - run: alphadag --output_path ./dag.dot .
-    - uses: google-github-actions/setup-gcloud@master
+    - uses: google-github-actions/setup-gcloud@v0
       with:
         version: '270.0.0'
         service_account_key: ${{ secrets.GCP_SA_KEY }}
