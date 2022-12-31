@@ -1,5 +1,0 @@
--- 文化の日	十一月三日
-CREATE OR REPLACE FUNCTION holidays_in_japan.IS_CULTURE_DAY(d DATE)
-AS (
-  EXTRACT(MONTH FROM d) = 11 AND EXTRACT(DAY FROM d) = 3
-);

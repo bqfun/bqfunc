@@ -1,0 +1,10 @@
+config {
+  type: "operations",
+  schema: "zerobyte__us",
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(a ARRAY<STRUCT<_ STRUCT<INT64>>>)
+  AS (
+    DATETIME_ADD('1970-01-01', INTERVAL ${ref("zerobyte__us", "zerobyte_to_int64")}(a) MICROSECOND)
+  )

@@ -1,0 +1,15 @@
+config {
+  type: "operations",
+  schema: "holidays_in_japan__us",
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(d DATE)
+  AS (
+    d = "2020-08-10"
+    OR d = "2021-08-08"
+    OR "2016-01-01" <= d AND EXTRACT(YEAR FROM d) NOT IN (2020, 2021) AND EXTRACT(MONTH FROM d) = 8 AND EXTRACT(DAY FROM d) = 11
+  )
+  OPTIONS (
+    description = "山の日 8月11日 山に親しむ機会を得て、山の恩恵に感謝する。"
+  )

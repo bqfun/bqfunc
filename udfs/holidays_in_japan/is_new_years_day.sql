@@ -1,5 +1,0 @@
--- 元日 一月一日
-CREATE OR REPLACE FUNCTION holidays_in_japan.IS_NEW_YEARS_DAY(d DATE)
-AS (
-  EXTRACT(DAYOFYEAR FROM d) = 1
-);

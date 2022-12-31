@@ -1,0 +1,13 @@
+config {
+  type: "operations",
+  schema: "holidays_in_japan__us",
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(d DATE)
+  AS (
+    EXTRACT(MONTH FROM d) = 11 AND EXTRACT(DAY FROM d) = 23
+  )
+  OPTIONS (
+    description = "勤労感謝の日 11月23日 勤労をたっとび、生産を祝い、国民たがいに感謝しあう。"
+  )

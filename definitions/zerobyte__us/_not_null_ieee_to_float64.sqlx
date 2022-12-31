@@ -1,0 +1,10 @@
+config {
+  type: "operations",
+  schema: "zerobyte__us",
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(a ARRAY<INT64>)
+  RETURNS FLOAT64
+  LANGUAGE js
+  AS "return new Float64Array(new Uint32Array(a).buffer)[0]"
