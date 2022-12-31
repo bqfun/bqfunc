@@ -1,0 +1,40 @@
+config {
+  type: "operations",
+  schema: "random",
+  tags: ["asia-northeast1"],
+}
+
+ALTER SCHEMA bqfunc.random
+SET OPTIONS (
+  description = TRIM('''
+# random
+乱数生成を行うルーティンをまとめたデータセットです。
+
+使用例
+SELECT
+  x
+FROM
+  (
+    SELECT
+      `bqfunc.random.beta`(alpha => 5, beta => 1) AS x
+    FROM
+      -- 生成ミスのケア
+      UNNEST(GENERATE_ARRAY(1, 50 * 2))
+  )
+WHERE
+  x IS NOT NULL
+LIMIT
+  50
+
+BigQueryユーザコミュニティBQ FUNが作成しています。
+BQ FUNは、利用者が本コンテンツを用いて行う一切の責任を負いません。
+また、予告なく変更、削除される場合があります。
+
+データセットの作成過程と、用いられている権利物はこちらのURLから確認できます。
+
+https://github.com/bqfun/bqfunc
+'''));
+
+GRANT `roles/bigquery.dataViewer`
+ON SCHEMA bqfunc.random
+TO 'allUsers';

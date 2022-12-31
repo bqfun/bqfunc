@@ -1,0 +1,34 @@
+config {
+  type: "operations",
+  schema: "0_readme",
+  tags: ["asia-northeast1"],
+}
+
+ALTER SCHEMA bqfunc.bayes_ab
+SET OPTIONS (
+  description = TRIM('''
+# bayes_ab
+ベイジアンA/Bテストを行うルーティンをまとめたデータセットです。
+
+使用例
+SELECT
+  `bqfunc.bayes_ab.bernoulli`(
+    A_data => STRUCT(6 AS cv, 500 AS click),
+    B_data => STRUCT(3 AS cv, 350 AS click),
+    n_samples => 100000,
+    priors => STRUCT(1 AS alpha, 1 AS beta),
+    lift => 0.1
+  )
+
+BigQueryユーザコミュニティBQ FUNが作成しています。
+BQ FUNは、利用者が本コンテンツを用いて行う一切の責任を負いません。
+また、予告なく変更、削除される場合があります。
+
+データセットの作成過程と、用いられている権利物はこちらのURLから確認できます。
+
+https://github.com/bqfun/bqfunc
+'''));
+
+GRANT `roles/bigquery.dataViewer`
+ON SCHEMA bqfunc.bayes_ab
+TO 'allUsers';

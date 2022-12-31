@@ -7,8 +7,8 @@ config {
 
 CREATE OR REPLACE FUNCTION ${self()}
   (
-    A_data STRUCT<sum INT64, count INT64>,
-    B_data STRUCT<sum INT64, count INT64>,
+    A_data STRUCT<countif INT64, count INT64>,
+    B_data STRUCT<countif INT64, count INT64>,
     n_samples INT64,
     priors STRUCT<alpha FLOAT64, beta FLOAT64>,
     lift FLOAT64
@@ -17,8 +17,8 @@ CREATE OR REPLACE FUNCTION ${self()}
     (
       WITH d AS (
         SELECT
-          ${ref("random", "beta")}(A_data.sum + priors.alpha, A_data.count - A_data.sum + priors.beta) AS a,
-          ${ref("random", "beta")}(B_data.sum + priors.alpha, B_data.count - B_data.sum + priors.beta) AS b,
+          ${ref("random", "beta")}(A_data.countif + priors.alpha, A_data.count - A_data.countif + priors.beta) AS a,
+          ${ref("random", "beta")}(B_data.countif + priors.alpha, B_data.count - B_data.countif + priors.beta) AS b,
           OFFSET
         FROM
           UNNEST(GENERATE_ARRAY(1, n_samples * 2)) WITH OFFSET

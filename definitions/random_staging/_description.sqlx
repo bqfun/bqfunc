@@ -1,0 +1,25 @@
+config {
+  type: "operations",
+  schema: "random_staging",
+  tags: ["asia-northeast1"],
+}
+
+ALTER SCHEMA bqfunc.random_staging
+SET OPTIONS (
+  description = TRIM('''
+# random_staging
+一様乱数から他の分布の乱数への変換を行うルーティンをまとめたデータセットです。
+開発者向けです。直接使用する機会はほぼなく、基本的にrandomデータセットを利用します。
+
+BigQueryユーザコミュニティBQ FUNが作成しています。
+BQ FUNは、利用者が本コンテンツを用いて行う一切の責任を負いません。
+また、予告なく変更、削除される場合があります。
+
+データセットの作成過程と、用いられている権利物はこちらのURLから確認できます。
+
+https://github.com/bqfun/bqfunc
+'''));
+
+GRANT `roles/bigquery.dataViewer`
+ON SCHEMA bqfunc.random_staging
+TO 'allUsers';
