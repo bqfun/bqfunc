@@ -4,7 +4,7 @@ config {
   tags: ["us"],
 }
 
-ALTER SCHEMA bqtest__us
+ALTER SCHEMA bqfunc.bqtest__us
 SET OPTIONS (
   description = TRIM('''
 # bqtest
@@ -23,5 +23,5 @@ https://github.com/bqfun/bqfunc
 '''));
 
 GRANT `roles/bigquery.dataViewer`
-ON SCHEMA bqtest__us
+ON SCHEMA bqfunc.bqtest__us
 TO 'allUsers';

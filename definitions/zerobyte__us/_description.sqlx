@@ -4,7 +4,7 @@ config {
   tags: ["us"],
 }
 
-ALTER SCHEMA zerobyte__us
+ALTER SCHEMA bqfunc.zerobyte__us
 SET OPTIONS (
   description = TRIM('''
 # zerobyte
@@ -25,5 +25,5 @@ https://github.com/bqfun/bqfunc
 '''));
 
 GRANT `roles/bigquery.dataViewer`
-ON SCHEMA zerobyte__us
+ON SCHEMA bqfunc.zerobyte__us
 TO 'allUsers';
