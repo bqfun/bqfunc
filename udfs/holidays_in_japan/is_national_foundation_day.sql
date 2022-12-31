@@ -1,5 +1,0 @@
--- 建国記念の日 政令で定める日
-CREATE OR REPLACE FUNCTION holidays_in_japan.IS_NATIONAL_FOUNDATION_DAY(d DATE)
-AS (
-  "1967-01-01" <= d AND EXTRACT(DAYOFYEAR FROM d) = 42
-);

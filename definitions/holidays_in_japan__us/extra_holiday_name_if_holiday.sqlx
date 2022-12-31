@@ -1,0 +1,17 @@
+config {
+  type: "operations",
+  schema: "holidays_in_japan__us",
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(d DATE)
+  AS (
+    CASE d
+      WHEN "1959-04-10" THEN "結婚の儀"
+      WHEN "1989-02-24" THEN "大喪の礼"
+      WHEN "1990-11-12" THEN "即位礼正殿の儀"
+      WHEN "1993-06-09" THEN "結婚の儀"
+      WHEN "2019-05-01" THEN "休日（祝日扱い）"
+      WHEN "2019-10-22" THEN "休日（祝日扱い）"
+    END
+  )

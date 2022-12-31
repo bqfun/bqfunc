@@ -1,0 +1,14 @@
+config {
+  type: "operations",
+  schema: "holidays_in_japan__us",
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(d DATE)
+  AS (
+    d BETWEEN "1989-01-01" AND "2006-12-31" AND EXTRACT(MONTH FROM d) = 4 AND EXTRACT(DAY FROM d) = 29
+    OR "2007-01-01" <= d AND EXTRACT(MONTH FROM d) = 5 AND EXTRACT(DAY FROM d) = 4
+  )
+  OPTIONS (
+    description = "みどりの日 5月4日 自然に親しむとともにその恩恵に感謝し、豊かな心をはぐくむ。"
+  )

@@ -1,0 +1,25 @@
+-- 春分の日 春分日
+config {
+  type: "operations",
+  schema: "holidays_in_japan__us",
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(d DATE)
+  AS (
+    EXTRACT(MONTH FROM d) = 3
+    AND EXTRACT(DAY FROM d) = FLOOR(
+      CASE
+        WHEN EXTRACT(YEAR FROM d) BETWEEN 1851 AND 1899 THEN 19.8277
+        WHEN EXTRACT(YEAR FROM d) BETWEEN 1900 AND 1979 THEN 20.8357
+        WHEN EXTRACT(YEAR FROM d) BETWEEN 1980 AND 2099 THEN 20.8431
+        WHEN EXTRACT(YEAR FROM d) BETWEEN 2100 AND 2150 THEN 21.8510
+        ELSE - 1000000000
+      END
+      + 0.242194 * (EXTRACT(YEAR FROM d) - 1980)
+      - FLOOR((EXTRACT(YEAR FROM d) - 1980) / 4)
+    )
+  )
+  OPTIONS (
+    description = "春分の日 春分日 自然をたたえ、生物をいつくしむ。"
+  )

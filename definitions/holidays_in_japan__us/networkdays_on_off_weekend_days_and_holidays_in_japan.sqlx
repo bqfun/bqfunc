@@ -1,0 +1,18 @@
+config {
+  type: "operations",
+  schema: "holidays_in_japan__us",
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(start_date DATE, end_date DATE)
+  AS (
+    (
+      SELECT
+        COUNTIF(${ref("holidays_in_japan__us", "holiday_name")}(d) IS NULL AND EXTRACT(DAYOFWEEK FROM d) NOT IN (1, 7))
+      FROM
+        UNNEST(GENERATE_DATE_ARRAY(start_date, end_date)) AS d
+    )
+  )
+  OPTIONS (
+    description = "start_date から end_date までの期間に含まれる稼動日の日数を返す。土日、日本の祝日、休日を休暇とする。"
+  )
