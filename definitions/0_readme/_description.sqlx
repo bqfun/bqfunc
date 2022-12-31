@@ -1,0 +1,24 @@
+config {
+  type: "operations",
+  schema: "0_readme",
+  tags: ["asia-northeast1"],
+}
+
+ALTER SCHEMA `0_readme`
+SET OPTIONS (
+  description = TRIM('''
+README
+
+このプロジェクトは、様々なBigQueryルーティンをまとめたBigQueryデータセットを提供します。
+
+BigQueryユーザコミュニティBQ FUNが作成しておりますが、BQ FUNは、利用者が本コンテンツを用いて行う一切の責任を負いません。
+また、予告なく変更、削除される場合があります。
+
+データセットの作成過程と、用いられている権利物はこちらのURLから確認できます。
+
+https://github.com/bqfun/bqfunc
+'''));
+
+GRANT `roles/bigquery.dataViewer`
+ON SCHEMA `0_readme`
+TO 'allUsers';
