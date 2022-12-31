@@ -1,0 +1,99 @@
+config {
+  type: "operations",
+  schema: "brainfuck__us",
+  tags: ["us"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE PROCEDURE ${self()}(IN input ARRAY<INT64>, IN commands STRING, INOUT output ARRAY<INT64>)
+OPTIONS (strict_mode=true)
+BEGIN
+
+    DECLARE command STRING;
+
+    DECLARE buffer ARRAY<INT64> DEFAULT ARRAY(SELECT 0 FROM UNNEST(GENERATE_ARRAY(1, 64)));
+    DECLARE buffer_offset INT64 DEFAULT 0;
+    DECLARE input_offset INT64 DEFAULT 0;
+    DECLARE depth INT64;
+
+    DECLARE commands_position INT64 DEFAULT 0;
+
+    LOOP
+        SET commands_position = commands_position + 1;
+        SET command = SUBSTR(commands, commands_position, 1);
+        IF command = '' THEN
+            RETURN;
+        END IF;
+
+        IF command = '>' THEN
+            SET buffer_offset = buffer_offset + 1;
+            CONTINUE;
+        END IF;
+
+        IF command = '<' THEN
+            SET buffer_offset = buffer_offset - 1;
+            CONTINUE;
+        END IF;
+
+        IF command = '+' THEN
+            SET buffer = ARRAY(SELECT IF(offset = buffer_offset, b + 1, b) FROM UNNEST(buffer) b WITH OFFSET AS offset ORDER BY offset);
+            CONTINUE;
+        END IF;
+
+        IF command = '-' THEN
+            SET buffer = ARRAY(SELECT IF(offset = buffer_offset, b - 1, b) FROM UNNEST(buffer) b WITH OFFSET AS offset ORDER BY offset);
+            CONTINUE;
+        END IF;
+
+        IF command = '.' THEN
+            SET output = ARRAY_CONCAT(output, [buffer[OFFSET(buffer_offset)]]);
+            CONTINUE;
+        END IF;
+
+        IF command = ',' THEN
+            SET buffer = ARRAY(SELECT IF(offset = buffer_offset, input[OFFSET(input_offset)], b) FROM UNNEST(buffer) b WITH OFFSET AS offset ORDER BY offset);
+            SET input_offset = input_offset + 1;
+            CONTINUE;
+        END IF;
+
+        IF command = '[' AND buffer[OFFSET(buffer_offset)] = 0 THEN
+            SET depth = 1;
+            WHILE depth > 0 DO
+                SET commands_position = commands_position + 1;
+                SET command = SUBSTR(commands, commands_position, 1);
+                IF command = '[' THEN
+                    SET depth = depth + 1;
+                    CONTINUE;
+                END IF;
+                IF command = ']' THEN
+                    SET depth = depth - 1;
+                    CONTINUE;
+                END IF;
+                IF command = '' THEN
+                    SELECT ERROR('missing-bracket');
+                END IF;
+            END WHILE;
+            CONTINUE;
+        END IF;
+
+        IF command = ']' AND buffer[OFFSET(buffer_offset)] <> 0 THEN
+            SET depth = 1;
+            WHILE depth > 0 DO
+                SET commands_position = commands_position - 1;
+                SET command = SUBSTR(commands, commands_position, 1);
+                IF command = ']' THEN
+                    SET depth = depth + 1;
+                    CONTINUE;
+                END IF;
+                IF command = '[' THEN
+                    SET depth = depth - 1;
+                    CONTINUE;
+                END IF;
+                IF command = '' THEN
+                    SELECT ERROR('missing-bracket');
+                END IF;
+            END WHILE;
+            CONTINUE;
+        END IF;
+    END LOOP;
+END;

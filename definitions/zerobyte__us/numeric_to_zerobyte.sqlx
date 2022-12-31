@@ -1,6 +1,7 @@
 config {
   type: "operations",
   schema: "zerobyte__us",
+  tags: ["us"],
   hasOutput: true,
 }
 
