@@ -4,7 +4,7 @@ config {
   tags: ["us"],
 }
 
-ALTER SCHEMA holidays_in_japan__us
+ALTER SCHEMA bqfunc.holidays_in_japan__us
 SET OPTIONS (
   description = TRIM('''
 # holidays_in_japan
@@ -23,5 +23,5 @@ https://github.com/bqfun/bqfunc
 '''));
 
 GRANT `roles/bigquery.dataViewer`
-ON SCHEMA holidays_in_japan__us
+ON SCHEMA bqfunc.holidays_in_japan__us
 TO 'allUsers';

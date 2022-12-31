@@ -4,7 +4,7 @@ config {
   tags: ["asia-northeast1"],
 }
 
-ALTER SCHEMA `0_readme`
+ALTER SCHEMA bqfunc.`0_readme`
 SET OPTIONS (
   description = TRIM('''
 README
@@ -20,5 +20,5 @@ https://github.com/bqfun/bqfunc
 '''));
 
 GRANT `roles/bigquery.dataViewer`
-ON SCHEMA `0_readme`
+ON SCHEMA bqfunc.`0_readme`
 TO 'allUsers';
