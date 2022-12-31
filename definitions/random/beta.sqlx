@@ -1,0 +1,9 @@
+config {
+  type: "operations",
+  schema: "random",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(alpha FLOAT64, beta FLOAT64)
+  AS (${ref("random_staging", "cheng_algorithm_ba")}(alpha, beta, RAND(), RAND()))

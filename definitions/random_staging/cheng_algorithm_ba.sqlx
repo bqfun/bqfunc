@@ -1,0 +1,10 @@
+config {
+  type: "operations",
+  schema: "random_staging",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(a FLOAT64, b FLOAT64, U_1 FLOAT64, U_2 FLOAT64)
+  AS (${ref("random_staging", "cheng_algorithm_ba_generate")}(${ref("random_staging", "cheng_algorithm_ba_initialize")}(a, b), U_1, U_2))
+  OPTIONS (description = "Cheng, R. C. (1978). Generating beta variates with nonintegral shape parameters. Communications of the ACM, 21(4), 317-322.")

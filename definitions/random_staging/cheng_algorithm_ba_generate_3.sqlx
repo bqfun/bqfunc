@@ -1,0 +1,14 @@
+config {
+  type: "operations",
+  schema: "random_staging",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(b FLOAT64, alpha FLOAT64, gamma FLOAT64, U_1 FLOAT64, U_2 FLOAT64, V FLOAT64, W FLOAT64)
+  AS (
+    IF(alpha * LN(alpha / (b + W)) + gamma * V - LN(4) < LN(U_1 * U_1 * U_2),
+      NULL,
+      W / (b + W)
+    )
+  )

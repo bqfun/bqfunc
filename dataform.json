@@ -3,5 +3,5 @@
     "assertionSchema": "dataform_assertions",
     "warehouse": "bigquery",
     "defaultDatabase": "bqfunc",
-    "defaultLocation": "US"
+    "defaultLocation": "asia-northeast1"
 }

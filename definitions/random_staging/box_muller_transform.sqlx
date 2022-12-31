@@ -1,0 +1,10 @@
+config {
+  type: "operations",
+  schema: "random_staging",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(U_1 FLOAT64, U_2 FLOAT64)
+  AS (SQRT(-2 * LN(U_1)) * COS(2 * ACOS(-1) * U_2))
+  OPTIONS (description = "Box, G. E. (1958). A note on the generation of random normal deviates. Ann. Math. Statist., 29, 610-611.")

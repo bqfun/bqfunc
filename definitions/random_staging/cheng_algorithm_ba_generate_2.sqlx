@@ -1,0 +1,19 @@
+config {
+  type: "operations",
+  schema: "random_staging",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(a FLOAT64, b FLOAT64, alpha FLOAT64, gamma FLOAT64, U_1 FLOAT64, U_2 FLOAT64, V FLOAT64)
+  AS (
+    ${ref("random_staging", "cheng_algorithm_ba_generate_3")}(
+      b => b,
+      alpha => alpha,
+      gamma => gamma,
+      U_1 => U_1,
+      U_2 => U_2,
+      V => V,
+      W => a * EXP(V)
+    )
+  )
