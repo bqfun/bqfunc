@@ -1,6 +1,6 @@
 config {
   type: "operations",
-  schema: "0_readme",
+  schema: "bayes_ab",
   tags: ["asia-northeast1"],
 }
 
