@@ -1,7 +1,7 @@
 config {
   type: "operations",
   schema: "bqtest__us",
-  tags: ["us"],
+  tags: ["US"],
 }
 
 ALTER SCHEMA bqfunc.bqtest__us

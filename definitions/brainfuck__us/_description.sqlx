@@ -1,7 +1,7 @@
 config {
   type: "operations",
   schema: "brainfuck__us",
-  tags: ["us"],
+  tags: ["US"],
 }
 
 ALTER SCHEMA bqfunc.brainfuck__us
