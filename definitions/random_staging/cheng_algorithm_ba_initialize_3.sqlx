@@ -1,0 +1,17 @@
+config {
+  type: "operations",
+  schema: "random_staging",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(a FLOAT64, b FLOAT64, alpha FLOAT64, beta FLOAT64)
+  AS (
+    STRUCT(
+      a,
+      b,
+      alpha,
+      beta,
+      a + 1 / beta AS gamma
+    )
+  )

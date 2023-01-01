@@ -4,6 +4,8 @@ config {
   tags: ["asia-northeast1"],
 }
 
+CREATE SCHEMA IF NOT EXISTS bqfunc.`0_readme` OPTIONS(location="asia-northeast1");
+
 ALTER SCHEMA bqfunc.`0_readme`
 SET OPTIONS (
   description = TRIM('''

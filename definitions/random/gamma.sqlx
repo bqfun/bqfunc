@@ -1,0 +1,15 @@
+config {
+  type: "operations",
+  schema: "random",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(shape FLOAT64, rate FLOAT64)
+  AS (
+    ${ref("random_staging", "marsaglia_method")}(
+      shape,
+      RAND(),
+      ${ref("random_staging", "box_muller_transform")}(RAND(), RAND())
+    ) / rate
+  )

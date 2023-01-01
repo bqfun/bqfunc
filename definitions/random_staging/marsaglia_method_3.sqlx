@@ -1,0 +1,15 @@
+config {
+  type: "operations",
+  schema: "random_staging",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(d FLOAT64, U FLOAT64, x FLOAT64, v FLOAT64)
+  AS (
+    IF(
+      0 < v AND LN(U) < 0.5 * x * x + d * (1 - v + LN(v)),
+      d * v,
+      NULL
+    )
+  )

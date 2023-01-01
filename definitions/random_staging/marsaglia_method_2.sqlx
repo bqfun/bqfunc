@@ -1,0 +1,16 @@
+config {
+  type: "operations",
+  schema: "random_staging",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(d FLOAT64, U FLOAT64, x FLOAT64)
+  AS (
+    ${ref("random_staging", "marsaglia_method_3")}(
+      d => d,
+      U => U,
+      x => x,
+      v => POW(1 + x / SQRT(9 * d), 3)
+    )
+  )

@@ -1,0 +1,20 @@
+config {
+  type: "operations",
+  schema: "random_staging",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(a FLOAT64, b FLOAT64, alpha FLOAT64)
+  AS (
+    ${ref("random_staging", "cheng_algorithm_ba_initialize_3")}(
+      a => a,
+      b => b,
+      alpha => alpha,
+      beta => IF(
+        LEAST(a, b) <= 1,
+        GREATEST(1 / a, 1 / b),
+        SQRT((alpha - 2) / (2 * a * b - alpha))
+      )
+    )
+  )
