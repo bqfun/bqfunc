@@ -1,0 +1,22 @@
+config {
+  type: "operations",
+  schema: "random_staging",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(lambda FLOAT64)
+  RETURNS FLOAT64
+  LANGUAGE js
+  AS r"""
+    const L = Math.exp(-lambda)
+    let k = -1
+    let p = 1
+    do {
+      k++
+      p *= Math.random()
+    } while (p > L)
+    return k
+  """
+  OPTIONS (description = "Knuth, Donald Ervin (1997). Seminumerical Algorithms. The Art of Computer Programming. Vol. 2 (3rd ed.). Addison Wesley. ISBN 978-0-201-89684-8.")
+;
