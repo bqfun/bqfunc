@@ -1,0 +1,9 @@
+config {
+  type: "operations",
+  schema: "random",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(lambda FLOAT64)
+  AS (${ref("random_staging", "knuth_algorithm")}(lambda))
