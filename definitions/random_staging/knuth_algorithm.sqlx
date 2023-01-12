@@ -6,7 +6,7 @@ config {
 }
 
 CREATE OR REPLACE FUNCTION ${self()}(lambda FLOAT64)
-  RETURNS FLOAT64
+  RETURNS INT64
   LANGUAGE js
   AS r"""
     const L = Math.exp(-lambda)
