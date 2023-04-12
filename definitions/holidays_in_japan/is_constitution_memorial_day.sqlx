@@ -1,0 +1,14 @@
+config {
+  type: "operations",
+  schema: "holidays_in_japan",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(d DATE)
+  AS (
+    EXTRACT(MONTH FROM d) = 5 AND EXTRACT(DAY FROM d) = 3
+  )
+  OPTIONS (
+    description = "憲法記念日 5月3日 日本国憲法の施行を記念し、国の成長を期する。"
+  )

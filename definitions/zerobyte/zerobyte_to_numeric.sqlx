@@ -1,0 +1,11 @@
+config {
+  type: "operations",
+  schema: "zerobyte",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(a ARRAY<STRUCT<ARRAY<STRUCT<STRUCT<INT64>>>>>)
+  AS (
+    CAST(${ref("zerobyte", "zerobyte_to_string")}(a) AS NUMERIC)
+  )

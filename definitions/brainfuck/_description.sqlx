@@ -1,0 +1,32 @@
+config {
+  type: "operations",
+  schema: "brainfuck",
+  tags: ["asia-northeast1"],
+}
+
+ALTER SCHEMA bqfunc.brainfuck
+SET OPTIONS (
+  description = TRIM('''
+# brainfuck
+BigQueryの論理非圧縮バイト数が0になるようにデータを変換する処理をまとめたデータセットです。
+
+使用例
+DECLARE output ARRAY<INT64>;
+SET output = [];
+
+CALL bqfunc.brainfuck.brainfuck([], "--[>--->->->++>-<<<<<-------]>--.>---------.>--..+++.>----.>+++++++++.<<.+++.------.<-.>>+.", output);
+
+SELECT CODE_POINTS_TO_STRING(output);
+
+BigQueryユーザコミュニティBQ FUNが作成しています。
+BQ FUNは、利用者が本コンテンツを用いて行う一切の責任を負いません。
+また、予告なく変更、削除される場合があります。
+
+データセットの作成過程と、用いられている権利物はこちらのURLから確認できます。
+
+https://github.com/bqfun/bqfunc
+'''));
+
+GRANT `roles/bigquery.dataViewer`
+ON SCHEMA bqfunc.brainfuck
+TO 'allUsers';

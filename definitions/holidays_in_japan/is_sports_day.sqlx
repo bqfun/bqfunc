@@ -1,0 +1,16 @@
+config {
+  type: "operations",
+  schema: "holidays_in_japan",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(d DATE)
+  AS (
+    d = "2020-07-24"
+    OR d = "2021-07-23"
+    OR "2022-01-01" <= d AND EXTRACT(MONTH FROM d) = 10 AND EXTRACT(DAYOFWEEK FROM d) = 2 AND EXTRACT(DAY FROM d) BETWEEN 8 AND 14
+  )
+  OPTIONS (
+    description = "スポーツの日 10月の第2月曜日 スポーツを楽しみ、他者を尊重する精神を培うとともに、健康で活力ある社会の実現を願う。"
+  )

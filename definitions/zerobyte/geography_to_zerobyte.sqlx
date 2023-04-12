@@ -1,0 +1,11 @@
+config {
+  type: "operations",
+  schema: "zerobyte",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(g GEOGRAPHY)
+  AS (
+    ${ref("zerobyte", "bytes_to_zerobyte")}(ST_ASBINARY(g))
+  )

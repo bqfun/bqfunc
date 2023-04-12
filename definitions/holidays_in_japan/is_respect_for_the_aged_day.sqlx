@@ -1,0 +1,15 @@
+config {
+  type: "operations",
+  schema: "holidays_in_japan",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(d DATE)
+  AS (
+    d BETWEEN "1966-01-01" AND "2002-12-31" AND EXTRACT(MONTH FROM d) = 9 AND EXTRACT(DAY FROM d) = 15
+    OR "2003-01-01" <= d AND EXTRACT(MONTH FROM d) = 9 AND EXTRACT(DAYOFWEEK FROM d) = 2 AND EXTRACT(DAY FROM d) BETWEEN 15 AND 21
+  )
+  OPTIONS (
+    description = "敬老の日 9月の第3月曜日 多年にわたり社会につくしてきた老人を敬愛し、長寿を祝う。"
+  )
