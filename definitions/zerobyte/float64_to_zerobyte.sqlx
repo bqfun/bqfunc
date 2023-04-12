@@ -1,0 +1,11 @@
+config {
+  type: "operations",
+  schema: "zerobyte",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(f FLOAT64)
+  AS (
+    IF(f IS NULL, NULL, ${ref("zerobyte", "array_int64_to_zerobyte")}(${ref("zerobyte", "_not_null_float64_to_ieee")}(f)))
+  )

@@ -1,0 +1,29 @@
+config {
+  type: "operations",
+  schema: "zerobyte",
+  tags: ["asia-northeast1"],
+}
+
+ALTER SCHEMA bqfunc.zerobyte
+SET OPTIONS (
+  description = TRIM('''
+# zerobyte
+BigQueryの論理非圧縮バイト数が0になるようにデータを変換する処理をまとめたデータセットです。
+
+使用例
+SELECT
+  `bqfunc.zerobyte.bool_to_zerobyte`(TRUE),
+  `bqfunc.zerobyte.zerobyte_to_bool`(`bqfunc.zerobyte.bool_to_zerobyte`(TRUE)) IS TRUE
+
+BigQueryユーザコミュニティBQ FUNが作成しています。
+BQ FUNは、利用者が本コンテンツを用いて行う一切の責任を負いません。
+また、予告なく変更、削除される場合があります。
+
+データセットの作成過程と、用いられている権利物はこちらのURLから確認できます。
+
+https://github.com/bqfun/bqfunc
+'''));
+
+GRANT `roles/bigquery.dataViewer`
+ON SCHEMA bqfunc.zerobyte
+TO 'allUsers';

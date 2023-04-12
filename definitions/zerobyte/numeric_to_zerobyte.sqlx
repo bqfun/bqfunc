@@ -1,0 +1,11 @@
+config {
+  type: "operations",
+  schema: "zerobyte",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(n NUMERIC)
+  AS (
+    IF(n IS NULL, NULL, ${ref("zerobyte", "string_to_zerobyte")}(CAST(n AS STRING)))
+  )

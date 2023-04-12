@@ -1,0 +1,60 @@
+config {
+  type: "operations",
+  schema: "holidays_in_japan",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(d DATE)
+  AS (
+    "1973-04-12" <= d
+    AND NOT ${ref("holidays_in_japan", "is_new_years_day")}(d)
+    AND NOT ${ref("holidays_in_japan", "is_coming_of_age_day")}(d)
+    AND NOT ${ref("holidays_in_japan", "is_national_foundation_day")}(d)
+    AND NOT ${ref("holidays_in_japan", "is_emperors_birthday")}(d)
+    AND NOT ${ref("holidays_in_japan", "is_vernal_equinox_day")}(d)
+    AND NOT ${ref("holidays_in_japan", "is_showa_day")}(d)
+    AND NOT ${ref("holidays_in_japan", "is_constitution_memorial_day")}(d)
+    AND NOT ${ref("holidays_in_japan", "is_greenery_day")}(d)
+    AND NOT ${ref("holidays_in_japan", "is_childrens_day")}(d)
+    AND NOT ${ref("holidays_in_japan", "is_marine_day")}(d)
+    AND NOT ${ref("holidays_in_japan", "is_mountain_day")}(d)
+    AND NOT ${ref("holidays_in_japan", "is_respect_for_the_aged_day")}(d)
+    AND NOT ${ref("holidays_in_japan", "is_autumnal_equinox_day")}(d)
+    AND NOT ${ref("holidays_in_japan", "is_health_sports_day")}(d)
+    AND NOT ${ref("holidays_in_japan", "is_sports_day")}(d)
+    AND NOT ${ref("holidays_in_japan", "is_culture_day")}(d)
+    AND NOT ${ref("holidays_in_japan", "is_labour_thanksgiving_day")}(d)
+    AND ${ref("holidays_in_japan", "extra_holiday_name_if_holiday")}(d) IS NULL
+    AND (
+      SELECT
+        IFNULL(
+          LOGICAL_AND(
+            ${ref("holidays_in_japan", "is_new_years_day")}(day)
+            OR ${ref("holidays_in_japan", "is_coming_of_age_day")}(day)
+            OR ${ref("holidays_in_japan", "is_national_foundation_day")}(day)
+            OR ${ref("holidays_in_japan", "is_emperors_birthday")}(day)
+            OR ${ref("holidays_in_japan", "is_vernal_equinox_day")}(day)
+            OR ${ref("holidays_in_japan", "is_showa_day")}(day)
+            OR ${ref("holidays_in_japan", "is_constitution_memorial_day")}(day)
+            OR ${ref("holidays_in_japan", "is_greenery_day")}(day)
+            OR ${ref("holidays_in_japan", "is_childrens_day")}(day)
+            OR ${ref("holidays_in_japan", "is_marine_day")}(day)
+            OR ${ref("holidays_in_japan", "is_mountain_day")}(day)
+            OR ${ref("holidays_in_japan", "is_respect_for_the_aged_day")}(day)
+            OR ${ref("holidays_in_japan", "is_autumnal_equinox_day")}(day)
+            OR ${ref("holidays_in_japan", "is_health_sports_day")}(day)
+            OR ${ref("holidays_in_japan", "is_sports_day")}(day)
+            OR ${ref("holidays_in_japan", "is_culture_day")}(day)
+            OR ${ref("holidays_in_japan", "is_labour_thanksgiving_day")}(day)
+            OR ${ref("holidays_in_japan", "extra_holiday_name_if_holiday")}(day) IS NOT NULL
+          ),
+          FALSE
+        )
+      FROM
+        UNNEST(GENERATE_DATE_ARRAY(d + 1 - EXTRACT(DAYOFWEEK FROM d), d - 1)) AS day
+    )
+  )
+  OPTIONS (
+    description = "「国民の祝日」が日曜日に当たるとき、その日の後の最も近い平日を休日とする"
+  )

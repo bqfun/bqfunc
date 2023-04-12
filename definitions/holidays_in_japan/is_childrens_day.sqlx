@@ -1,0 +1,14 @@
+config {
+  type: "operations",
+  schema: "holidays_in_japan",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(d DATE)
+  AS (
+    EXTRACT(MONTH FROM d) = 5 AND EXTRACT(DAY FROM d) = 5
+  )
+  OPTIONS (
+    description = "こどもの日 5月5日 こどもの人格を重んじ、こどもの幸福をはかるとともに、母に感謝する。"
+  )

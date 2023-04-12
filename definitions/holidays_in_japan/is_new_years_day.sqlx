@@ -1,0 +1,14 @@
+config {
+  type: "operations",
+  schema: "holidays_in_japan",
+  tags: ["asia-northeast1"],
+  hasOutput: true,
+}
+
+CREATE OR REPLACE FUNCTION ${self()}(d DATE)
+  AS (
+    EXTRACT(DAYOFYEAR FROM d) = 1
+  )
+  OPTIONS (
+    description = "元日 1月1日 年のはじめを祝う。"
+  )
